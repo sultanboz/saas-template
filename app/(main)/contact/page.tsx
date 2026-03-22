@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Footer }   from '@/components/layout/Footer'
 import { Badge }    from '@/components/ui/Badge'
 import { Input }    from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
@@ -32,7 +33,8 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-surface-950">
+    <>
+    <div id="main-content" className="min-h-screen bg-surface-950">
 
       {/* Hero */}
       <section className="pt-32 pb-16 px-4 sm:px-6 text-center">
@@ -189,5 +191,7 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   )
 }

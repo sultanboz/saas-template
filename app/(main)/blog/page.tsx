@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { ArrowRight, Clock, Zap } from 'lucide-react'
+import { ArrowRight, Clock } from 'lucide-react'
 import { posts, formatDate } from '@/lib/blog'
 import type { Metadata } from 'next'
+import { FooterMinimal } from '@/components/layout/FooterMinimal'
 
 export const metadata: Metadata = {
   title: 'Blog — Engineering, design & growth insights',
@@ -19,30 +20,9 @@ export default function BlogPage() {
   const [featured, ...rest] = posts
 
   return (
-    <div className="min-h-screen bg-surface-950">
-
-      {/* Navbar */}
-      <header className="border-b border-surface-800/60 bg-surface-950/90 backdrop-blur-xl sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center
-                            group-hover:scale-110 transition-transform duration-200">
-              <Zap size={14} className="text-surface-950 fill-surface-950" />
-            </div>
-            <span className="font-display font-bold text-lg text-surface-50">NexLayer</span>
-          </Link>
-          <Link
-            href="/#pricing"
-            className="px-4 py-2 text-sm font-medium rounded-lg
-                       bg-brand-500 text-surface-950 hover:bg-brand-400
-                       transition-colors shadow-lg shadow-brand-500/20"
-          >
-            Get template
-          </Link>
-        </div>
-      </header>
-
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-20">
+    <>
+    <div id="main-content" className="min-h-screen bg-surface-950">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-20">
 
         {/* Page header */}
         <div className="mb-16">
@@ -155,5 +135,7 @@ export default function BlogPage() {
         </div>
       </main>
     </div>
+    <FooterMinimal />
+    </>
   )
 }

@@ -1,4 +1,3 @@
-import { Navbar }                  from '@/components/layout/Navbar'
 import { Footer }                  from '@/components/layout/Footer'
 import { HeroVisual }              from '@/components/sections/HeroVisual'
 import { StatsSection }            from '@/components/sections/StatsSection'
@@ -19,7 +18,6 @@ export const metadata = {
 export default function HomeVisualPage() {
   return (
     <>
-      <Navbar />
       <main id="main-content">
         {/* 1. First impression — dashboard mockup + floating chips */}
         <HeroVisual />

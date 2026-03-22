@@ -1,5 +1,6 @@
-import { Badge }  from '@/components/ui/Badge'
-import { Avatar } from '@/components/ui/Avatar'
+import { Footer }      from '@/components/layout/Footer'
+import { Badge }       from '@/components/ui/Badge'
+import { Avatar }      from '@/components/ui/Avatar'
 import { Zap, Globe, Users, Heart, ArrowRight } from 'lucide-react'
 
 const team = [
@@ -12,31 +13,16 @@ const team = [
 ]
 
 const values = [
-  {
-    icon: Zap,
-    title: 'Ship fast',
-    desc: 'We believe in momentum. Every decision is optimized to help teams move from idea to production in days, not months.',
-  },
-  {
-    icon: Globe,
-    title: 'Built in the open',
-    desc: 'Transparency is core to how we build. We share what we learn, publish our roadmap, and ship changelogs every release.',
-  },
-  {
-    icon: Users,
-    title: 'Community first',
-    desc: 'Our best features have come from conversations with customers. We listen more than we talk.',
-  },
-  {
-    icon: Heart,
-    title: 'Craft matters',
-    desc: 'Every pixel, every interaction, every line of generated code is reviewed for quality. We don\'t settle for "good enough".',
-  },
+  { icon: Zap, title: 'Ship fast', desc: 'We believe in momentum. Every decision is optimized to help teams move from idea to production in days, not months.' },
+  { icon: Globe, title: 'Built in the open', desc: 'Transparency is core to how we build. We share what we learn, publish our roadmap, and ship changelogs every release.' },
+  { icon: Users, title: 'Community first', desc: 'Our best features have come from conversations with customers. We listen more than we talk.' },
+  { icon: Heart, title: 'Craft matters', desc: "Every pixel, every interaction, every line of generated code is reviewed for quality. We don't settle for \"good enough\"." },
 ]
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-surface-950">
+    <>
+    <div id="main-content" className="min-h-screen bg-surface-950">
 
       {/* Hero */}
       <section className="pt-32 pb-20 px-4 sm:px-6 text-center">
@@ -75,20 +61,12 @@ export default function AboutPage() {
       <section className="py-24 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-2xl font-display font-bold text-surface-100 mb-3">
-              What we believe in
-            </h2>
-            <p className="text-surface-500 max-w-lg mx-auto">
-              Four principles that guide every product decision we make.
-            </p>
+            <h2 className="text-2xl font-display font-bold text-surface-100 mb-3">What we believe in</h2>
+            <p className="text-surface-500 max-w-lg mx-auto">Four principles that guide every product decision we make.</p>
           </div>
           <div className="grid sm:grid-cols-2 gap-6">
             {values.map(({ icon: Icon, title, desc }) => (
-              <div
-                key={title}
-                className="flex gap-4 p-6 rounded-2xl border border-surface-800 bg-surface-900/40
-                           hover:border-surface-700 transition-colors"
-              >
+              <div key={title} className="flex gap-4 p-6 rounded-2xl border border-surface-800 bg-surface-900/40 hover:border-surface-700 transition-colors">
                 <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center flex-shrink-0">
                   <Icon size={18} className="text-brand-400" />
                 </div>
@@ -106,20 +84,12 @@ export default function AboutPage() {
       <section className="py-24 px-4 sm:px-6 border-t border-surface-800/60">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-2xl font-display font-bold text-surface-100 mb-3">
-              Meet the team
-            </h2>
-            <p className="text-surface-500 max-w-lg mx-auto">
-              A small, fully remote team spread across three continents.
-            </p>
+            <h2 className="text-2xl font-display font-bold text-surface-100 mb-3">Meet the team</h2>
+            <p className="text-surface-500 max-w-lg mx-auto">A small, fully remote team spread across three continents.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {team.map(member => (
-              <div
-                key={member.name}
-                className="p-6 rounded-2xl border border-surface-800 bg-surface-900/40
-                           hover:border-surface-700 transition-colors"
-              >
+              <div key={member.name} className="p-6 rounded-2xl border border-surface-800 bg-surface-900/40 hover:border-surface-700 transition-colors">
                 <div className="flex items-center gap-3 mb-4">
                   <Avatar fallback={member.fallback} color={member.color} size="lg" />
                   <div>
@@ -137,25 +107,19 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="py-24 px-4 sm:px-6 border-t border-surface-800/60">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-2xl font-display font-bold text-surface-100 mb-4">
-            Want to join us?
-          </h2>
+          <h2 className="text-2xl font-display font-bold text-surface-100 mb-4">Want to join us?</h2>
           <p className="text-surface-400 mb-8">
             We&apos;re a remote-first team and occasionally open up new roles.
             Drop us a line if you think you&apos;d be a great fit.
           </p>
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl
-                       bg-brand-500 text-surface-950 font-semibold text-sm
-                       hover:bg-brand-400 transition-all duration-200
-                       shadow-lg shadow-brand-500/20 hover:-translate-y-0.5"
-          >
+          <a href="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-500 text-surface-950 font-semibold text-sm hover:bg-brand-400 transition-all duration-200 shadow-lg shadow-brand-500/20 hover:-translate-y-0.5">
             Get in touch <ArrowRight size={15} />
           </a>
         </div>
       </section>
 
     </div>
+    <Footer />
+    </>
   )
 }

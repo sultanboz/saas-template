@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { FooterMinimal } from '@/components/layout/FooterMinimal'
 import { Button }   from '@/components/ui/Button'
 import { Badge }    from '@/components/ui/Badge'
 import { Card }     from '@/components/ui/Card'
@@ -56,11 +57,12 @@ export default function ComponentsPage() {
   const [textareaVal, setTextareaVal] = useState('')
 
   return (
-    <div className="min-h-screen bg-surface-950">
+    <>
+    <div id="main-content" className="min-h-screen bg-surface-950">
 
       {/* Hero */}
       <div className="border-b border-surface-800/60 bg-surface-950">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-32 pb-16">
           <Badge variant="brand" dot className="mb-5">Component Library</Badge>
           <h1 className="text-4xl sm:text-5xl font-display font-bold text-surface-50 mb-5">
             UI Components
@@ -538,5 +540,7 @@ export default function ComponentsPage() {
 
       </div>
     </div>
+    <FooterMinimal />
+    </>
   )
 }

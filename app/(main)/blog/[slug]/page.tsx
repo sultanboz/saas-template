@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, Clock, Zap } from 'lucide-react'
+import { ArrowLeft, Clock } from 'lucide-react'
 import { posts, getPost, formatDate } from '@/lib/blog'
 import type { Metadata } from 'next'
+import { FooterMinimal } from '@/components/layout/FooterMinimal'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -163,28 +164,9 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-surface-950">
-
-      {/* Navbar */}
-      <header className="border-b border-surface-800/60 bg-surface-950/90 backdrop-blur-xl sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center
-                            group-hover:scale-110 transition-transform duration-200">
-              <Zap size={14} className="text-surface-950 fill-surface-950" />
-            </div>
-            <span className="font-display font-bold text-lg text-surface-50">NexLayer</span>
-          </Link>
-          <Link href="/blog"
-                className="flex items-center gap-1.5 text-sm text-surface-400
-                           hover:text-surface-100 transition-colors">
-            <ArrowLeft size={14} />
-            All posts
-          </Link>
-        </div>
-      </header>
-
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
+    <>
+    <div id="main-content" className="min-h-screen bg-surface-950">
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 pt-32 pb-16">
 
         {/* Post header */}
         <div className="mb-10">
@@ -271,5 +253,7 @@ export default async function BlogPostPage({ params }: Props) {
         )}
       </main>
     </div>
+    <FooterMinimal />
+    </>
   )
 }

@@ -33,10 +33,12 @@ npm run start
 
 ## What's Included
 
-### Pages (8 routes)
+### Pages (9 routes)
 | Route | Description |
 |---|---|
-| `/` | Full landing page — 12 sections |
+| `/` | Full landing page — 12 sections (Classic) |
+| `/v2` | Visual variant — dashboard mockup, feature switcher |
+| `/v3` | Premium variant — services, portfolio, video, timeline |
 | `/blog` | Blog listing page |
 | `/blog/[slug]` | Blog post detail (4 sample posts) |
 | `/about` | Team page with 6 members + values |
@@ -50,7 +52,16 @@ npm run start
 |---|---|---|
 | HeroSection | `components/sections/HeroSection.tsx` | Split layout, terminal animation, CTA |
 | HeroAlt | `components/sections/HeroAlt.tsx` | Centered variant, avatar social proof |
+| HeroGradient | `components/sections/HeroGradient.tsx` | Gradient mesh hero (v3) |
 | StatsSection | `components/sections/StatsSection.tsx` | CountUp animation on scroll |
+| ServicesSection | `components/sections/ServicesSection.tsx` | Service cards grid (v3) |
+| HowItWorksSection | `components/sections/HowItWorksSection.tsx` | Step-by-step flow (v3) |
+| PortfolioSection | `components/sections/PortfolioSection.tsx` | Project showcase grid (v3) |
+| VideoDemoSection | `components/sections/VideoDemoSection.tsx` | Video embed placeholder (v3) |
+| AppDownloadSection | `components/sections/AppDownloadSection.tsx` | App Store / Play Store (v3) |
+| TimelineSection | `components/sections/TimelineSection.tsx` | Roadmap timeline (v3) |
+| NewsletterSection | `components/sections/NewsletterSection.tsx` | Newsletter signup (v3) |
+| AwardsSection | `components/sections/AwardsSection.tsx` | Awards & certifications (v3) |
 | DashboardPreviewSection | `components/sections/DashboardPreviewSection.tsx` | Browser chrome + CSS mockup |
 | FeaturesSection | `components/sections/FeaturesSection.tsx` | Asymmetric bento grid |
 | TestimonialsSection | `components/sections/TestimonialsSection.tsx` | Dual infinite-scroll marquee |
@@ -124,6 +135,8 @@ saas-template/
 ├── app/
 │   ├── layout.tsx              ← Root layout, fonts, metadata, ThemeProvider
 │   ├── page.tsx                ← Homepage (composes 12 sections)
+│   ├── v2/page.tsx             ← Visual variant
+│   ├── v3/page.tsx             ← Premium variant (services, portfolio, etc.)
 │   ├── globals.css             ← CSS variables, utility classes, animations
 │   ├── icon.tsx                ← Favicon (auto-generated)
 │   ├── opengraph-image.tsx     ← OG image (auto-generated)
@@ -141,7 +154,7 @@ saas-template/
 │
 ├── components/
 │   ├── layout/                 ← Navbar, NavbarMegaMenu, NavbarMinimal, Footer, FooterMinimal
-│   ├── sections/               ← 15 landing page sections
+│   ├── sections/               ← 20+ landing page sections
 │   ├── ui/                     ← 13 primitive UI components
 │   └── ThemeProvider.tsx       ← Dark/light mode context
 │

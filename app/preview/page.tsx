@@ -198,10 +198,10 @@ function SectionTitle({
 // ─── Data ────────────────────────────────────────────────
 const pages: PageItem[] = [
   {
-    title:      'Landing Page',
-    desc:       '12-section conversion funnel. Hero → Pricing → CTA.',
+    title:      'Homepage — Classic',
+    desc:       'Terminal animation, bento grid, conversion funnel. Hero → Pricing → CTA.',
     href:       '/',
-    badge:      'Main',
+    badge:      'Variant A',
     badgeColor: 'bg-brand-500/15 text-brand-400',
     blocks: [
       [{ h: 28, color: 'bg-surface-700' }],
@@ -209,6 +209,33 @@ const pages: PageItem[] = [
       [{ h: 18, color: 'bg-surface-800' }],
       [{ h: 10, color: 'bg-surface-800', w: '30%' }, { h: 10, color: 'bg-surface-800', w: '30%' }, { h: 10, color: 'bg-surface-800', w: '30%' }],
       [{ h: 14, color: 'bg-surface-800' }],
+    ],
+  },
+  {
+    title:      'Homepage — Visual',
+    desc:       'Dashboard mockup, floating chips, feature switcher, Twitter-style testimonials.',
+    href:       '/v2',
+    badge:      'Variant B',
+    badgeColor: 'bg-violet-500/15 text-violet-400',
+    blocks: [
+      [{ h: 12, color: 'bg-surface-700', w: '48%' }, { h: 12, color: 'bg-violet-500/20', w: '48%' }],
+      [{ h: 8,  color: 'bg-brand-500/40', w: '40%' }, { h: 8, color: 'bg-surface-800', w: '30%' }],
+      [{ h: 18, color: 'bg-surface-800', w: '35%' }, { h: 18, color: 'bg-violet-500/10', w: '60%' }],
+      [{ h: 10, color: 'bg-surface-800', w: '30%' }, { h: 10, color: 'bg-surface-800', w: '30%' }, { h: 10, color: 'bg-surface-800', w: '30%' }],
+    ],
+  },
+  {
+    title:      'Homepage — Premium (v3)',
+    desc:       'Gradient hero, services, portfolio, video demo, timeline, newsletter, awards.',
+    href:       '/v3',
+    badge:      'Variant C',
+    badgeColor: 'bg-cyan-500/15 text-cyan-400',
+    blocks: [
+      [{ h: 32, color: 'bg-gradient-to-b from-brand-500/20 to-transparent' }],
+      [{ h: 6,  color: 'bg-surface-700', w: '25%' }, { h: 6, color: 'bg-surface-700', w: '25%' }, { h: 6, color: 'bg-surface-700', w: '25%' }],
+      [{ h: 14, color: 'bg-surface-800', w: '31%' }, { h: 14, color: 'bg-surface-800', w: '31%' }, { h: 14, color: 'bg-surface-800', w: '31%' }],
+      [{ h: 20, color: 'bg-surface-800' }],
+      [{ h: 10, color: 'bg-surface-800', w: '48%' }, { h: 10, color: 'bg-surface-800', w: '48%' }],
     ],
   },
   {
@@ -675,7 +702,7 @@ export default function PreviewPage() {
             {/* Quick stats */}
             <div className="grid grid-cols-2 gap-3 flex-shrink-0">
               {[
-                { value: '8',   label: 'Pages'      },
+                { value: '9',   label: 'Pages'      },
                 { value: '15',  label: 'Sections'   },
                 { value: '13',  label: 'Components' },
                 { value: '5',   label: 'Layouts'    },
