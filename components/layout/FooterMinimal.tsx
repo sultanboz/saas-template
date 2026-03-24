@@ -1,4 +1,5 @@
-import { Zap, Github, Twitter } from 'lucide-react'
+import { Zap } from 'lucide-react'
+import { GithubIcon, XIcon } from '@/components/icons/BrandIcons'
 
 export function FooterMinimal() {
   return (
@@ -37,11 +38,11 @@ export function FooterMinimal() {
         <div className="flex items-center gap-4">
           <a href="#" aria-label="GitHub"
              className="text-surface-600 hover:text-surface-300 transition-colors">
-            <Github size={16} />
+            <GithubIcon size={16} />
           </a>
-          <a href="#" aria-label="Twitter"
+          <a href="#" aria-label="X (Twitter)"
              className="text-surface-600 hover:text-surface-300 transition-colors">
-            <Twitter size={16} />
+            <XIcon size={16} />
           </a>
           <span className="text-sm text-surface-600">© 2025 NexLayer</span>
         </div>

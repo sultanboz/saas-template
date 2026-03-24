@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 export interface AvatarProps {
@@ -31,13 +32,21 @@ export function Avatar({ src, fallback, size = 'md', color = 'violet', className
   return (
     <div className={cn(
       'rounded-full flex items-center justify-center flex-shrink-0',
-      'font-semibold text-white overflow-hidden',
+      'font-semibold text-white overflow-hidden relative',
       sizeMap[size],
       src ? '' : colorMap[color],
       className
     )}>
       {src
-        ? <img src={src} alt={fallback} className="w-full h-full object-cover" />
+        ? (
+          <Image
+            src={src}
+            alt={fallback}
+            fill
+            sizes="96px"
+            className="object-cover"
+          />
+        )
         : <span>{fallback.slice(0, 2).toUpperCase()}</span>
       }
     </div>

@@ -7,7 +7,8 @@ import { Input }    from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
 import { Select }   from '@/components/ui/Select'
 import { Button }   from '@/components/ui/Button'
-import { Mail, MessageSquare, Twitter, Github, CheckCircle } from 'lucide-react'
+import { Mail, MessageSquare, CheckCircle } from 'lucide-react'
+import { GithubIcon, XIcon } from '@/components/icons/BrandIcons'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
@@ -25,11 +26,25 @@ export default function ContactPage() {
       setForm(prev => ({ ...prev, [field]: e.target.value }))
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     setStatus('loading')
-    await new Promise(r => setTimeout(r, 1000))
-    setStatus('success')
+    try {
+      const res = await fetch('/api/contact', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(form),
+      })
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        console.error('[contact]', data.error)
+        setStatus('error')
+        return
+      }
+      setStatus('success')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -112,6 +127,12 @@ export default function ContactPage() {
                   value={form.message}
                   onChange={onChange('message')}
                 />
+                {status === 'error' && (
+                  <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20
+                                rounded-lg px-4 py-2.5">
+                    Something went wrong. Please try again or email us directly.
+                  </p>
+                )}
                 <Button
                   type="submit"
                   size="md"
@@ -139,13 +160,13 @@ export default function ContactPage() {
                     desc:  'Best for licensing & billing',
                   },
                   {
-                    icon: Twitter,
+                    icon: XIcon,
                     label: 'Twitter / X',
                     value: '@nexlayer',
                     desc:  'Quick questions & updates',
                   },
                   {
-                    icon: Github,
+                    icon: GithubIcon,
                     label: 'GitHub',
                     value: 'github.com/nexlayer',
                     desc:  'Bug reports & feature requests',

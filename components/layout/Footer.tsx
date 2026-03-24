@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Zap, Github, Twitter, ArrowRight, CheckCircle } from 'lucide-react'
+import { Zap, ArrowRight, CheckCircle } from 'lucide-react'
+import { GithubIcon, XIcon } from '@/components/icons/BrandIcons'
 
 const footerLinks = {
   Product: [
@@ -28,12 +29,22 @@ export function Footer() {
   const [email,   setEmail]   = useState('')
   const [success, setSuccess] = useState(false)
 
-  async function handleSubscribe(e: React.FormEvent) {
+  async function handleSubscribe(e: { preventDefault(): void }) {
     e.preventDefault()
     if (!email.includes('@') || !email.includes('.')) return
-    // Simulate API
-    await new Promise(r => setTimeout(r, 800))
-    setSuccess(true)
+    try {
+      const res = await fetch('/api/newsletter', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email }),
+      })
+      if (res.ok) {
+        setSuccess(true)
+        setEmail('')
+      }
+    } catch {
+      // Fail silently in footer — user can try the full waitlist form
+    }
   }
 
   return (
@@ -131,14 +142,14 @@ export function Footer() {
                rel="noopener noreferrer"
                className="text-surface-600 hover:text-surface-300 transition-colors"
                aria-label="GitHub">
-              <Github size={17} />
+              <GithubIcon size={17} />
             </a>
             <a href="https://twitter.com"
                target="_blank"
                rel="noopener noreferrer"
                className="text-surface-600 hover:text-surface-300 transition-colors"
-               aria-label="Twitter">
-              <Twitter size={17} />
+               aria-label="X (Twitter)">
+              <XIcon size={17} />
             </a>
           </div>
         </div>

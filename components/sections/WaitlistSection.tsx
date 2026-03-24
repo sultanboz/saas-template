@@ -19,17 +19,25 @@ export function WaitlistSection() {
   const [email,  setEmail]  = useState('')
   const [status, setStatus] = useState<Status>('idle')
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     if (!email.includes('@') || !email.includes('.')) {
       setStatus('error')
       return
     }
     setStatus('loading')
-    // Simulate API call — replace with your email service
-    await new Promise(r => setTimeout(r, 1200))
-    setStatus('success')
-    setEmail('')
+    try {
+      const res = await fetch('/api/newsletter', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email }),
+      })
+      if (!res.ok) { setStatus('error'); return }
+      setStatus('success')
+      setEmail('')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (

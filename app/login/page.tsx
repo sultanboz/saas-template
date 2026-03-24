@@ -2,11 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Zap, Github, ArrowRight, Eye, EyeOff, Mail } from 'lucide-react'
-import type { Metadata } from 'next'
-
-// Note: metadata export doesn't work in 'use client' components.
-// Move to a layout.tsx in /app/login/ if needed.
+import { Zap, ArrowRight, Eye, EyeOff, Mail } from 'lucide-react'
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -14,11 +10,13 @@ export default function LoginPage() {
   const [password, setPassword]         = useState('')
   const [loading, setLoading]           = useState(false)
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     setLoading(true)
-    // TODO: connect to your auth provider (NextAuth, Clerk, Supabase Auth...)
-    await new Promise(r => setTimeout(r, 1000))
+    // Connect to your auth provider here.
+    // Examples: NextAuth  → signIn('credentials', { email, password })
+    //           Clerk     → signIn.create({ identifier: email, password })
+    //           Supabase  → supabase.auth.signInWithPassword({ email, password })
     setLoading(false)
   }
 

@@ -2,8 +2,8 @@
 
 A production-ready landing page template for AI tools, developer products, and SaaS applications. Built with Next.js 15, TypeScript, Tailwind CSS, and Framer Motion.
 
-**Live Demo:** [localhost:3000](http://localhost:3000)
-**Preview Hub:** [localhost:3000/preview](http://localhost:3000/preview)
+**Live Demo:** `https://your-demo-url.vercel.app` ← replace after deployment
+**Preview Hub:** `/preview`
 
 ---
 
@@ -33,12 +33,12 @@ npm run start
 
 ## What's Included
 
-### Pages (9 routes)
+### Pages (10 routes)
 | Route | Description |
 |---|---|
 | `/` | Full landing page — 12 sections (Classic) |
 | `/v2` | Visual variant — dashboard mockup, feature switcher |
-| `/v3` | Premium variant — services, portfolio, video, timeline |
+| `/v3` | Premium variant — services, portfolio, gallery, video, timeline |
 | `/blog` | Blog listing page |
 | `/blog/[slug]` | Blog post detail (4 sample posts) |
 | `/about` | Team page with 6 members + values |
@@ -47,7 +47,7 @@ npm run start
 | `/coming-soon` | Live countdown + email capture |
 | `/components` | Full UI component showcase |
 
-### Sections (15 components)
+### Sections (16 components)
 | Component | File | Description |
 |---|---|---|
 | HeroSection | `components/sections/HeroSection.tsx` | Split layout, terminal animation, CTA |
@@ -57,6 +57,7 @@ npm run start
 | ServicesSection | `components/sections/ServicesSection.tsx` | Service cards grid (v3) |
 | HowItWorksSection | `components/sections/HowItWorksSection.tsx` | Step-by-step flow (v3) |
 | PortfolioSection | `components/sections/PortfolioSection.tsx` | Project showcase grid (v3) |
+| GallerySection | `components/sections/GallerySection.tsx` | Filterable masonry gallery (v3) |
 | VideoDemoSection | `components/sections/VideoDemoSection.tsx` | Video embed placeholder (v3) |
 | AppDownloadSection | `components/sections/AppDownloadSection.tsx` | App Store / Play Store (v3) |
 | TimelineSection | `components/sections/TimelineSection.tsx` | Roadmap timeline (v3) |
@@ -115,14 +116,15 @@ CSS variables for both modes are defined in `app/globals.css`.
 6. **GitHub URL** — Replace `https://github.com` in Footer and NavbarMegaMenu
 
 ### Connect a Backend
-The following forms simulate submission with `setTimeout`. Replace with your API:
+API routes are included and ready. Forms submit to these endpoints — just wire up your provider:
 
-| Form | File | Integration points |
-|---|---|---|
-| Waitlist email | `WaitlistSection.tsx` | Resend, Mailchimp, ConvertKit |
-| Footer newsletter | `Footer.tsx` | Same as above |
-| Contact form | `app/contact/page.tsx` | Resend, Nodemailer, Formspree |
-| Login / OAuth | `app/login/page.tsx` | Clerk, NextAuth, Supabase Auth |
+| Form | File | API route | Integration |
+|---|---|---|---|
+| Waitlist email | `WaitlistSection.tsx` | `POST /api/newsletter` | Resend, Mailchimp, ConvertKit |
+| Footer newsletter | `Footer.tsx` | `POST /api/newsletter` | Same as above |
+| Coming soon | `app/coming-soon/page.tsx` | `POST /api/newsletter` | Same as above |
+| Contact form | `app/contact/page.tsx` | `POST /api/contact` | Resend, Nodemailer, Formspree |
+| Login / OAuth | `app/login/page.tsx` | — | Clerk, NextAuth, Supabase Auth |
 
 See `.env.example` for required environment variables.
 
@@ -135,11 +137,18 @@ saas-template/
 ├── app/
 │   ├── layout.tsx              ← Root layout, fonts, metadata, ThemeProvider
 │   ├── page.tsx                ← Homepage (composes 12 sections)
+│   ├── error.tsx               ← Global error boundary (500 page)
+│   ├── not-found.tsx           ← 404 page
 │   ├── v2/page.tsx             ← Visual variant
-│   ├── v3/page.tsx             ← Premium variant (services, portfolio, etc.)
+│   ├── v3/page.tsx             ← Premium variant (services, portfolio, gallery, etc.)
 │   ├── globals.css             ← CSS variables, utility classes, animations
 │   ├── icon.tsx                ← Favicon (auto-generated)
+│   ├── apple-icon.tsx          ← Apple touch icon (auto-generated)
 │   ├── opengraph-image.tsx     ← OG image (auto-generated)
+│   ├── robots.ts               ← /robots.txt (auto-generated)
+│   ├── sitemap.ts              ← /sitemap.xml (auto-generated)
+│   ├── api/contact/route.ts    ← POST /api/contact — validated contact form
+│   ├── api/newsletter/route.ts ← POST /api/newsletter — email subscribe
 │   ├── about/page.tsx          ← Team + values page
 │   ├── blog/page.tsx           ← Blog listing
 │   ├── blog/[slug]/page.tsx    ← Blog post
@@ -175,7 +184,7 @@ saas-template/
 
 | Technology | Version | Purpose |
 |---|---|---|
-| Next.js | 15.5 | Framework, App Router, SSR |
+| Next.js | 15 | Framework, App Router, SSR |
 | React | 19 | UI library |
 | TypeScript | 5 | Type safety |
 | Tailwind CSS | 3.4 | Styling, design tokens |

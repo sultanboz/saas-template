@@ -30,6 +30,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 // ─── Metadata ─────────────────────────────────────────────
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL ?? 'https://nexlayer.io'
+  ),
   title: {
     default:  'NexLayer — Next.js SaaS Landing Template',
     template: '%s | NexLayer',

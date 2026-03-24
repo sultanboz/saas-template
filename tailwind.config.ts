@@ -100,5 +100,17 @@ const config: Config = {
     },
   },
   plugins: [],
+  // Safelist: classes assembled from data arrays that Tailwind's scanner
+  // might not detect as "used" (GallerySection, PortfolioSection gradients,
+  // Avatar colour variants, Badge variants).
+  safelist: [
+    // GallerySection & PortfolioSection — gradient backgrounds
+    { pattern: /^from-(brand|violet|cyan|teal|amber|orange|rose|pink|emerald|green|sky|blue|fuchsia|purple|indigo|lime)-\d{3}\/\d+$/ },
+    { pattern: /^to-(brand|violet|cyan|teal|amber|orange|rose|pink|emerald|green|sky|blue|fuchsia|purple|indigo|lime)-\d{3}\/\d+$/ },
+    // Avatar colour variants (bg-{color}-500 classes)
+    'bg-violet-500', 'bg-blue-500', 'bg-amber-500',
+    'bg-rose-500',   'bg-emerald-500', 'bg-cyan-500',
+    'bg-orange-500', 'bg-pink-500',
+  ],
 }
 export default config

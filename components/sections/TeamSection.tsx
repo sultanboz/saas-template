@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Avatar } from '@/components/ui/Avatar'
-import { Twitter, Linkedin, Github } from 'lucide-react'
+import { GithubIcon, XIcon, LinkedinIcon } from '@/components/icons/BrandIcons'
 
 const team = [
   {
@@ -107,21 +107,21 @@ export function TeamSection() {
               {/* Social */}
               <div className="flex items-center gap-2">
                 {member.social.twitter && (
-                  <a href={member.social.twitter} aria-label="Twitter"
+                  <a href={member.social.twitter} aria-label="X (Twitter)"
                      className="text-surface-600 hover:text-surface-300 transition-colors">
-                    <Twitter size={13} />
+                    <XIcon size={13} />
                   </a>
                 )}
                 {member.social.linkedin && (
                   <a href={member.social.linkedin} aria-label="LinkedIn"
                      className="text-surface-600 hover:text-surface-300 transition-colors">
-                    <Linkedin size={13} />
+                    <LinkedinIcon size={13} />
                   </a>
                 )}
                 {member.social.github && (
                   <a href={member.social.github} aria-label="GitHub"
                      className="text-surface-600 hover:text-surface-300 transition-colors">
-                    <Github size={13} />
+                    <GithubIcon size={13} />
                   </a>
                 )}
               </div>

@@ -107,10 +107,15 @@ export function PricingSection() {
           </p>
 
           {/* Toggle */}
-          <div className="inline-flex items-center gap-1 p-1 rounded-full
-                          bg-surface-900 border border-surface-800">
+          <div
+            role="group"
+            aria-label="Billing period"
+            className="inline-flex items-center gap-1 p-1 rounded-full
+                          bg-surface-900 border border-surface-800"
+          >
             <button
               onClick={() => setIsYearly(false)}
+              aria-pressed={!isYearly}
               className={cn(
                 'px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200',
                 !isYearly
@@ -122,6 +127,7 @@ export function PricingSection() {
             </button>
             <button
               onClick={() => setIsYearly(true)}
+              aria-pressed={isYearly}
               className={cn(
                 'px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2',
                 isYearly

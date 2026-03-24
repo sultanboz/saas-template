@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Zap, ArrowRight, CheckCircle, Twitter, Github } from 'lucide-react'
+import { Zap, ArrowRight, CheckCircle } from 'lucide-react'
+import { GithubIcon, XIcon } from '@/components/icons/BrandIcons'
 
 function useCountdown(target: Date) {
   const calc = () => {
@@ -22,7 +23,10 @@ function useCountdown(target: Date) {
   return time
 }
 
-const LAUNCH_DATE = new Date('2026-04-01T00:00:00Z')
+// ── Update this date before publishing ───────────────────
+const LAUNCH_DATE = new Date(
+  process.env.NEXT_PUBLIC_LAUNCH_DATE ?? '2026-07-01T00:00:00Z'
+)
 
 type Status = 'idle' | 'loading' | 'done'
 
@@ -31,12 +35,25 @@ export default function ComingSoonPage() {
   const [email,  setEmail]  = useState('')
   const [status, setStatus] = useState<Status>('idle')
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     if (!email.includes('@')) return
     setStatus('loading')
-    await new Promise(r => setTimeout(r, 900))
-    setStatus('done')
+    try {
+      const res = await fetch('/api/newsletter', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email }),
+      })
+      if (res.ok) {
+        setStatus('done')
+        setEmail('')
+      } else {
+        setStatus('idle')
+      }
+    } catch {
+      setStatus('idle')
+    }
   }
 
   return (
@@ -137,8 +154,8 @@ export default function ComingSoonPage() {
         <div className="flex items-center justify-center gap-6 mt-12 pt-8
                         border-t border-surface-800/60">
           {[
-            { icon: Twitter, label: 'Twitter', href: 'https://twitter.com' },
-            { icon: Github,  label: 'GitHub',  href: 'https://github.com' },
+            { icon: XIcon,      label: 'Twitter / X', href: 'https://twitter.com' },
+            { icon: GithubIcon, label: 'GitHub',      href: 'https://github.com' },
           ].map(({ icon: Icon, label, href }) => (
             <a
               key={label}

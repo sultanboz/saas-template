@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Menu, X, Zap, Sun, Moon, ChevronDown,
          LayoutDashboard, Puzzle, RefreshCw, BookOpen,
-         Layers, FileText, Github, BarChart3,
+         Layers, FileText, Code2, BarChart3,
          ArrowRight, Zap as ZapIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useTheme } from '@/components/ThemeProvider'
@@ -34,7 +34,7 @@ const menus = {
       { icon: BookOpen, label: 'Documentation',  desc: 'Setup & customization guide', href: '/components' },
       { icon: Layers,   label: 'Components',     desc: 'UI component showcase',       href: '/components' },
       { icon: FileText, label: 'Blog',           desc: 'Engineering & design',        href: '/blog'       },
-      { icon: Github,   label: 'GitHub',         desc: 'Source code',                 href: 'https://github.com' },
+      { icon: Code2,    label: 'GitHub',         desc: 'Source code',                 href: 'https://github.com' },
     ],
   },
 }

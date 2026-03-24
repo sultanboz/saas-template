@@ -10,11 +10,21 @@ export function NewsletterSection() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: { preventDefault(): void }) => {
     e.preventDefault()
-    if (email.trim()) {
-      setSubmitted(true)
-      setEmail('')
+    if (!email.trim()) return
+    try {
+      const res = await fetch('/api/newsletter', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email }),
+      })
+      if (res.ok) {
+        setSubmitted(true)
+        setEmail('')
+      }
+    } catch {
+      // fail silently — user can retry
     }
   }
 

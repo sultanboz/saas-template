@@ -180,19 +180,19 @@ function TweetCard({ name, handle, avatar, color, verified, text, time, likes, r
 
       {/* Actions */}
       <div className="flex items-center gap-5">
-        <button className="flex items-center gap-1.5 text-surface-600 hover:text-rose-400 transition-colors group/btn">
+        <button aria-label={`Like — ${formatNum(likes)} likes`} className="flex items-center gap-1.5 text-surface-600 hover:text-rose-400 transition-colors group/btn">
           <Heart size={13} className="group-hover/btn:fill-rose-400 transition-all" />
-          <span className="text-[11px]">{formatNum(likes)}</span>
+          <span className="text-[11px]" aria-hidden="true">{formatNum(likes)}</span>
         </button>
-        <button className="flex items-center gap-1.5 text-surface-600 hover:text-brand-400 transition-colors">
+        <button aria-label={`Repost — ${formatNum(reposts)} reposts`} className="flex items-center gap-1.5 text-surface-600 hover:text-brand-400 transition-colors">
           <Repeat2 size={13} />
-          <span className="text-[11px]">{formatNum(reposts)}</span>
+          <span className="text-[11px]" aria-hidden="true">{formatNum(reposts)}</span>
         </button>
-        <button className="flex items-center gap-1.5 text-surface-600 hover:text-blue-400 transition-colors">
+        <button aria-label={`Reply — ${formatNum(replies)} replies`} className="flex items-center gap-1.5 text-surface-600 hover:text-blue-400 transition-colors">
           <MessageCircle size={13} />
-          <span className="text-[11px]">{formatNum(replies)}</span>
+          <span className="text-[11px]" aria-hidden="true">{formatNum(replies)}</span>
         </button>
-        <button className="ml-auto text-surface-600 hover:text-surface-400 transition-colors">
+        <button aria-label="Bookmark" className="ml-auto text-surface-600 hover:text-surface-400 transition-colors">
           <Bookmark size={13} />
         </button>
       </div>

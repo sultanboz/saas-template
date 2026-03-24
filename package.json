@@ -1,6 +1,17 @@
 {
-  "name": "saas-landing-template",
-  "version": "1.0.0",
+  "name": "nexlayer",
+  "version": "2.0.0",
+  "description": "Production-ready Next.js 15 SaaS landing page template with dark mode, Framer Motion, and TypeScript.",
+  "keywords": [
+    "nextjs",
+    "saas",
+    "landing-page",
+    "template",
+    "tailwind",
+    "typescript",
+    "dark-mode"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,23 +21,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.0.0",
+    "lucide-react": "^0.577.0",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "framer-motion": "^11.0.0",
-    "lucide-react": "^0.400.0",
-    "clsx": "^2.1.0",
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "^5.0.0",
-    "tailwindcss": "^3.4.0",
     "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.0",
     "eslint": "^8.0.0",
-    "eslint-config-next": "^15.0.0"
+    "eslint-config-next": "^15.0.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.0.0"
   }
 }

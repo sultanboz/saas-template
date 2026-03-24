@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexLayer — Documentation</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #09090b;
+      --bg2:       #111113;
+      --border:    #27272a;
+      --text:      #fafafa;
+      --muted:     #71717a;
+      --brand:     #22c55e;
+      --brand-dim: rgba(34,197,94,0.12);
+      --radius:    10px;
+      --font:      -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono:      'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background:  var(--bg);
+      color:       var(--text);
+      line-height: 1.65;
+      font-size:   15px;
+    }
+
+    /* ── Layout ── */
+    .wrapper   { display: flex; min-height: 100vh; }
+    .sidebar   { width: 260px; flex-shrink: 0; position: sticky; top: 0; height: 100vh;
+                 overflow-y: auto; border-right: 1px solid var(--border);
+                 background: var(--bg2); padding: 28px 0; }
+    .content   { flex: 1; padding: 60px 64px; max-width: 860px; }
+
+    /* ── Sidebar ── */
+    .sidebar-logo { display: flex; align-items: center; gap: 10px; padding: 0 24px 24px;
+                    border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+    .sidebar-logo-mark { width: 32px; height: 32px; background: var(--brand); border-radius: 8px;
+                          display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sidebar-logo-mark svg { fill: #09090b; }
+    .sidebar-name { font-weight: 700; font-size: 16px; letter-spacing: -.3px; }
+    .sidebar-ver  { font-size: 11px; color: var(--muted); }
+
+    .sidebar-section { padding: 8px 24px 4px; font-size: 10px; font-weight: 600;
+                        text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    .sidebar-link    { display: block; padding: 7px 24px; font-size: 13px; color: #a1a1aa;
+                        text-decoration: none; border-radius: 0; transition: color .15s, background .15s; }
+    .sidebar-link:hover { color: var(--text); background: rgba(255,255,255,.04); }
+    .sidebar-link.active { color: var(--brand); background: var(--brand-dim); }
+
+    /* ── Typography ── */
+    h1 { font-size: 36px; font-weight: 800; letter-spacing: -.8px; line-height: 1.15;
+          margin-bottom: 12px; }
+    h2 { font-size: 22px; font-weight: 700; letter-spacing: -.3px; margin: 52px 0 16px;
+          padding-top: 52px; border-top: 1px solid var(--border); }
+    h2:first-of-type { border-top: none; margin-top: 24px; padding-top: 0; }
+    h3 { font-size: 16px; font-weight: 600; margin: 28px 0 10px; color: #e4e4e7; }
+    p  { color: #a1a1aa; margin-bottom: 14px; }
+    a  { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul, ol { padding-left: 20px; color: #a1a1aa; margin-bottom: 14px; }
+    li { margin-bottom: 6px; }
+    strong { color: var(--text); font-weight: 600; }
+
+    /* ── Code ── */
+    code { font-family: var(--mono); font-size: 13px; background: rgba(255,255,255,.06);
+           border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; color: #86efac; }
+    pre  { font-family: var(--mono); font-size: 13px; background: var(--bg2);
+           border: 1px solid var(--border); border-radius: var(--radius);
+           padding: 18px 20px; overflow-x: auto; margin: 16px 0 20px; line-height: 1.7; }
+    pre code { background: none; border: none; padding: 0; color: #d4d4d8; }
+
+    /* ── Callout boxes ── */
+    .note    { background: rgba(34,197,94,.08); border: 1px solid rgba(34,197,94,.25);
+               border-radius: var(--radius); padding: 14px 18px; margin: 20px 0; }
+    .note p  { color: #86efac; margin: 0; font-size: 14px; }
+    .warn    { background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.25);
+               border-radius: var(--radius); padding: 14px 18px; margin: 20px 0; }
+    .warn p  { color: #fbbf24; margin: 0; font-size: 14px; }
+
+    /* ── Table ── */
+    table  { width: 100%; border-collapse: collapse; margin: 20px 0 28px; font-size: 14px; }
+    th     { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border);
+             color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+    td     { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,.04); color: #a1a1aa; }
+    td:first-child { color: var(--text); font-family: var(--mono); font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+
+    /* ── Badge ── */
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 11px;
+             font-weight: 600; }
+    .badge-green  { background: var(--brand-dim); color: var(--brand); border: 1px solid rgba(34,197,94,.3); }
+    .badge-blue   { background: rgba(59,130,246,.1); color: #60a5fa; border: 1px solid rgba(59,130,246,.3); }
+    .badge-purple { background: rgba(139,92,246,.1); color: #a78bfa; border: 1px solid rgba(139,92,246,.3); }
+
+    .lead { font-size: 17px; color: #71717a; margin-bottom: 32px; line-height: 1.7; }
+
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .content { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-mark">
+        <svg width="16" height="16" viewBox="0 0 24 24">
+          <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="sidebar-name">NexLayer</div>
+        <div class="sidebar-ver">v2.0.0 — Documentation</div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">Getting Started</div>
+    <a class="sidebar-link" href="#introduction">Introduction</a>
+    <a class="sidebar-link" href="#requirements">Requirements</a>
+    <a class="sidebar-link" href="#installation">Installation</a>
+    <a class="sidebar-link" href="#env">Environment Variables</a>
+
+    <div class="sidebar-section">Customization</div>
+    <a class="sidebar-link" href="#branding">Brand &amp; Colors</a>
+    <a class="sidebar-link" href="#typography">Typography</a>
+    <a class="sidebar-link" href="#darkmode">Dark / Light Mode</a>
+    <a class="sidebar-link" href="#content">Replacing Content</a>
+
+    <div class="sidebar-section">Pages</div>
+    <a class="sidebar-link" href="#pages">All Pages</a>
+    <a class="sidebar-link" href="#homepage-variants">Homepage Variants</a>
+
+    <div class="sidebar-section">Components</div>
+    <a class="sidebar-link" href="#sections">Section Components</a>
+    <a class="sidebar-link" href="#ui-components">UI Primitives</a>
+    <a class="sidebar-link" href="#layout">Layout Components</a>
+
+    <div class="sidebar-section">Backend</div>
+    <a class="sidebar-link" href="#forms">Forms &amp; API Routes</a>
+    <a class="sidebar-link" href="#email">Email Integration</a>
+    <a class="sidebar-link" href="#auth">Authentication</a>
+
+    <div class="sidebar-section">Deploy</div>
+    <a class="sidebar-link" href="#deploy">Deployment</a>
+    <a class="sidebar-link" href="#seo">SEO &amp; Metadata</a>
+    <a class="sidebar-link" href="#support">Support</a>
+  </aside>
+
+  <!-- ── Main Content ── -->
+  <main class="content">
+
+    <h1>NexLayer Documentation</h1>
+    <p class="lead">
+      Production-ready Next.js 15 SaaS landing page template with dark/light mode,
+      Framer Motion animations, TypeScript, and Tailwind CSS.
+    </p>
+
+    <!-- Introduction -->
+    <h2 id="introduction">Introduction</h2>
+    <p>
+      <strong>NexLayer</strong> is a premium Next.js template designed for SaaS products,
+      developer tools, and AI applications. It ships with three homepage variants,
+      28 section components, 13 UI primitives, a complete blog system, and a
+      production-quality design token system.
+    </p>
+
+    <table>
+      <tr><th>Tech</th><th>Version</th><th>Notes</th></tr>
+      <tr><td>Next.js</td><td>^15.0</td><td>App Router, SSR, Static Generation</td></tr>
+      <tr><td>React</td><td>^19.0</td><td></td></tr>
+      <tr><td>TypeScript</td><td>^5.0</td><td>Strict mode enabled</td></tr>
+      <tr><td>Tailwind CSS</td><td>^3.4</td><td>CSS variable–based design tokens</td></tr>
+      <tr><td>Framer Motion</td><td>^11.0</td><td>Scroll-triggered animations</td></tr>
+      <tr><td>Lucide React</td><td>^0.400</td><td>Icon library</td></tr>
+    </table>
+
+    <!-- Requirements -->
+    <h2 id="requirements">Requirements</h2>
+    <ul>
+      <li>Node.js <strong>18.17+</strong> (LTS recommended)</li>
+      <li>npm 9+ / pnpm 8+ / yarn 4+</li>
+      <li>A modern browser (Chrome, Firefox, Safari, Edge)</li>
+    </ul>
+
+    <!-- Installation -->
+    <h2 id="installation">Installation</h2>
+    <h3>1. Install dependencies</h3>
+    <pre><code>npm install
+# or
+pnpm install</code></pre>
+
+    <h3>2. Set up environment variables</h3>
+    <pre><code>cp .env.example .env.local</code></pre>
+    <p>Open <code>.env.local</code> and fill in your values (see <a href="#env">Environment Variables</a>).</p>
+
+    <h3>3. Start the dev server</h3>
+    <pre><code>npm run dev</code></pre>
+    <p>Open <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> in your browser.</p>
+
+    <h3>Available Scripts</h3>
+    <table>
+      <tr><th>Command</th><th>Description</th></tr>
+      <tr><td>npm run dev</td><td>Start development server</td></tr>
+      <tr><td>npm run dev:clean</td><td>Delete .next cache and start fresh</td></tr>
+      <tr><td>npm run build</td><td>Create production build</td></tr>
+      <tr><td>npm run start</td><td>Start production server</td></tr>
+      <tr><td>npm run lint</td><td>Run ESLint</td></tr>
+    </table>
+
+    <!-- Environment Variables -->
+    <h2 id="env">Environment Variables</h2>
+    <p>Copy <code>.env.example</code> to <code>.env.local</code> and configure:</p>
+    <table>
+      <tr><th>Variable</th><th>Required</th><th>Description</th></tr>
+      <tr><td>NEXT_PUBLIC_APP_URL</td><td><span class="badge badge-green">Required</span></td><td>Your production URL (e.g. https://yourdomain.com)</td></tr>
+      <tr><td>NEXT_PUBLIC_APP_NAME</td><td>Optional</td><td>Site name displayed in metadata</td></tr>
+      <tr><td>NEXT_PUBLIC_LAUNCH_DATE</td><td>Optional</td><td>Countdown target for Coming Soon page (ISO 8601)</td></tr>
+      <tr><td>RESEND_API_KEY</td><td>Optional</td><td>Email sending via Resend</td></tr>
+      <tr><td>RESEND_AUDIENCE_ID</td><td>Optional</td><td>Newsletter audience in Resend</td></tr>
+      <tr><td>CONTACT_TO_EMAIL</td><td>Optional</td><td>Destination for contact form submissions</td></tr>
+    </table>
+
+    <!-- Branding -->
+    <h2 id="branding">Brand &amp; Colors</h2>
+    <p>The primary brand color is <strong>green (#22c55e)</strong>. To change it:</p>
+    <h3>1. Update Tailwind config</h3>
+    <p>Edit <code>tailwind.config.ts</code>, replacing the <code>brand</code> color scale:</p>
+    <pre><code>// tailwind.config.ts
+brand: {
+  50:  '#eff6ff',  // replace with your lightest tint
+  ...
+  500: '#3b82f6',  // ← your primary brand color
+  ...
+}</code></pre>
+
+    <h3>2. Update icon.tsx and opengraph-image.tsx</h3>
+    <p>Both files hardcode <code>#22c55e</code>. Update to match your brand:</p>
+    <pre><code>// app/icon.tsx  &amp;  app/opengraph-image.tsx
+background: '#3b82f6',   // ← your brand color</code></pre>
+
+    <!-- Typography -->
+    <h2 id="typography">Typography</h2>
+    <p>Three font families are configured via <code>next/font/google</code> in <code>app/layout.tsx</code>:</p>
+    <table>
+      <tr><th>Variable</th><th>Font</th><th>Usage</th></tr>
+      <tr><td>--font-display</td><td>Syne</td><td><code>font-display</code> — headings, hero, logo</td></tr>
+      <tr><td>--font-body</td><td>DM Sans</td><td><code>font-body</code> — body text (default)</td></tr>
+      <tr><td>--font-mono</td><td>JetBrains Mono</td><td><code>font-mono</code> — code, terminal</td></tr>
+    </table>
+    <p>To swap fonts, replace the import in <code>app/layout.tsx</code> with any Google Font and update the <code>variable</code> name.</p>
+
+    <!-- Dark Mode -->
+    <h2 id="darkmode">Dark / Light Mode</h2>
+    <p>
+      Mode is controlled by adding/removing the <code>.dark</code> class on <code>&lt;html&gt;</code>.
+      <code>ThemeProvider</code> (<code>components/ThemeProvider.tsx</code>) persists the user's
+      preference in <code>localStorage</code>.
+    </p>
+    <p>The full surface color scale (50–950) is defined as CSS variables in <code>app/globals.css</code>
+      and automatically inverts between dark and light mode.</p>
+    <div class="note"><p>The template defaults to dark mode. To default to light mode, change <code>className="dark"</code> to <code>className="light"</code> in <code>app/layout.tsx</code>.</p></div>
+
+    <!-- Content -->
+    <h2 id="content">Replacing Content</h2>
+    <h3>Company name / branding</h3>
+    <p>Search for <code>NexLayer</code> across the project and replace with your product name.
+    Key files: <code>app/layout.tsx</code>, <code>components/layout/Navbar.tsx</code>,
+    <code>components/layout/Footer.tsx</code>, <code>app/not-found.tsx</code>.</p>
+
+    <h3>Pricing</h3>
+    <p>Edit <code>components/sections/PricingSection.tsx</code> — update the <code>plans</code> array
+    with your real tier names, prices, and features.</p>
+
+    <h3>Testimonials</h3>
+    <p>Edit the <code>testimonials</code> array in <code>components/sections/TestimonialsSection.tsx</code>
+    and/or <code>TestimonialsVisual.tsx</code>.</p>
+
+    <h3>Blog posts</h3>
+    <p>Blog data lives in <code>lib/blog.ts</code>. Add/edit entries in the <code>posts</code> array.
+    Each post maps to a static route via <code>generateStaticParams</code>.</p>
+
+    <h3>Team members</h3>
+    <p>Edit the <code>team</code> array in <code>components/sections/TeamSection.tsx</code>.</p>
+
+    <!-- Pages -->
+    <h2 id="pages">All Pages</h2>
+    <table>
+      <tr><th>Route</th><th>File</th><th>Description</th></tr>
+      <tr><td>/</td><td>app/(main)/page.tsx</td><td>Classic homepage — terminal hero</td></tr>
+      <tr><td>/v2</td><td>app/(main)/v2/page.tsx</td><td>Visual homepage — dashboard mockup</td></tr>
+      <tr><td>/v3</td><td>app/(main)/v3/page.tsx</td><td>Premium homepage — gradient hero</td></tr>
+      <tr><td>/blog</td><td>app/(main)/blog/page.tsx</td><td>Blog index</td></tr>
+      <tr><td>/blog/[slug]</td><td>app/(main)/blog/[slug]/page.tsx</td><td>Blog article (SSG)</td></tr>
+      <tr><td>/about</td><td>app/(main)/about/page.tsx</td><td>Team &amp; company values</td></tr>
+      <tr><td>/contact</td><td>app/(main)/contact/page.tsx</td><td>Contact form</td></tr>
+      <tr><td>/login</td><td>app/login/page.tsx</td><td>Sign in / sign up</td></tr>
+      <tr><td>/coming-soon</td><td>app/coming-soon/page.tsx</td><td>Countdown + email capture</td></tr>
+      <tr><td>/components</td><td>app/(main)/components/page.tsx</td><td>UI component showcase</td></tr>
+      <tr><td>/preview</td><td>app/preview/page.tsx</td><td>ThemeForest demo hub</td></tr>
+    </table>
+
+    <!-- Homepage Variants -->
+    <h2 id="homepage-variants">Homepage Variants</h2>
+    <p>Three fully independent homepage designs are included. Use whichever fits your product best,
+    or mix sections across variants.</p>
+    <table>
+      <tr><th>Variant</th><th>Route</th><th>Key Sections</th></tr>
+      <tr><td><span class="badge badge-green">Classic</span></td><td>/</td><td>Terminal hero, bento features, dual testimonials marquee, comparison table</td></tr>
+      <tr><td><span class="badge badge-blue">Visual v2</span></td><td>/v2</td><td>Dashboard mockup hero, interactive feature switcher, tweet testimonials</td></tr>
+      <tr><td><span class="badge badge-purple">Premium v3</span></td><td>/v3</td><td>Gradient hero, services grid, portfolio, gallery, video demo, timeline</td></tr>
+    </table>
+
+    <!-- Section Components -->
+    <h2 id="sections">Section Components</h2>
+    <p>All section components live in <code>components/sections/</code>.
+    Each is self-contained with its own data, animations, and styles.</p>
+    <table>
+      <tr><th>Component</th><th>Used in</th><th>Description</th></tr>
+      <tr><td>HeroSection</td><td>Classic (/)</td><td>Split layout with typing terminal animation</td></tr>
+      <tr><td>HeroAlt</td><td>Sections preview</td><td>Centered hero variant with AvatarGroup</td></tr>
+      <tr><td>HeroGradient</td><td>v3</td><td>Full-bleed gradient mesh hero</td></tr>
+      <tr><td>HeroVisual</td><td>v2</td><td>Dashboard mockup hero</td></tr>
+      <tr><td>StatsSection</td><td>Classic</td><td>CountUp animation — 4 key metrics</td></tr>
+      <tr><td>DashboardPreviewSection</td><td>Classic, v2</td><td>CSS-drawn dashboard with chart</td></tr>
+      <tr><td>FeaturesSection</td><td>Classic</td><td>Asymmetric bento grid — 8 features</td></tr>
+      <tr><td>FeaturesVisual</td><td>v2</td><td>Interactive feature switcher with live panels</td></tr>
+      <tr><td>TestimonialsSection</td><td>Classic</td><td>Dual infinite-scroll marquee</td></tr>
+      <tr><td>TestimonialsVisual</td><td>v2</td><td>Tweet-style testimonials grid</td></tr>
+      <tr><td>IntegrationsSection</td><td>Classic</td><td>Logo marquee + install steps</td></tr>
+      <tr><td>ComparisonSection</td><td>Classic</td><td>Feature comparison table vs DIY</td></tr>
+      <tr><td>PricingSection</td><td>All</td><td>3-tier pricing with monthly/yearly toggle</td></tr>
+      <tr><td>ServicesSection</td><td>v3</td><td>Service cards grid</td></tr>
+      <tr><td>HowItWorksSection</td><td>v3</td><td>4-step flow with icons</td></tr>
+      <tr><td>PortfolioSection</td><td>v3</td><td>6-project showcase with hover overlays</td></tr>
+      <tr><td>GallerySection</td><td>v3</td><td>Filterable masonry image gallery</td></tr>
+      <tr><td>VideoDemoSection</td><td>v3</td><td>YouTube/Vimeo embed placeholder</td></tr>
+      <tr><td>AppDownloadSection</td><td>v3</td><td>App Store &amp; Play Store CTAs</td></tr>
+      <tr><td>TimelineSection</td><td>v3</td><td>Product roadmap with version milestones</td></tr>
+      <tr><td>NewsletterSection</td><td>v3</td><td>Standalone email capture block</td></tr>
+      <tr><td>AwardsSection</td><td>v3</td><td>Third-party review &amp; rating badges</td></tr>
+      <tr><td>WaitlistSection</td><td>Classic</td><td>Email capture with success animation</td></tr>
+      <tr><td>ChangelogSection</td><td>Classic</td><td>Release timeline with version badges</td></tr>
+      <tr><td>FaqSection</td><td>All</td><td>Animated accordion — 8 questions</td></tr>
+      <tr><td>CtaSection</td><td>All</td><td>Full-width close with glow</td></tr>
+      <tr><td>LogoSection</td><td>All</td><td>Animated logo cloud</td></tr>
+      <tr><td>TeamSection</td><td>About</td><td>Team grid with social links</td></tr>
+    </table>
+
+    <!-- UI Components -->
+    <h2 id="ui-components">UI Primitives</h2>
+    <p>All primitives live in <code>components/ui/</code>. Visit <code>/components</code> for a live demo.</p>
+    <table>
+      <tr><th>Component</th><th>Props highlights</th></tr>
+      <tr><td>Button</td><td>variant (primary | secondary | outline | ghost | danger), size (xs | sm | md | lg)</td></tr>
+      <tr><td>Badge</td><td>variant (default | brand | blue | amber | red | purple | cyan | outline), size, dot</td></tr>
+      <tr><td>Card</td><td>variant (default | elevated | accent | ghost), padding (none | sm | md | lg)</td></tr>
+      <tr><td>Input</td><td>label, hint, error, prefix, suffix, all native input props</td></tr>
+      <tr><td>Textarea</td><td>label, hint, error, maxChars (character counter)</td></tr>
+      <tr><td>Select</td><td>label, hint, error, options [{value, label}]</td></tr>
+      <tr><td>Switch</td><td>checked, onChange, label, hint, disabled</td></tr>
+      <tr><td>Checkbox</td><td>checked, onChange, label, hint, indeterminate, disabled</td></tr>
+      <tr><td>Avatar</td><td>fallback, size (xs–xl), color (8 variants), src (image URL)</td></tr>
+      <tr><td>AvatarGroup</td><td>avatars[], size, max (overflow counter)</td></tr>
+      <tr><td>Progress</td><td>value (0–100), variant, size, label, showValue</td></tr>
+      <tr><td>Tabs</td><td>tabs [{id, label, badge, content}], variant (line | pill | card)</td></tr>
+      <tr><td>Skeleton</td><td>variant (rect | circle | text), className</td></tr>
+      <tr><td>Tooltip</td><td>content, placement (top | bottom | left | right), delay</td></tr>
+    </table>
+
+    <!-- Layout Components -->
+    <h2 id="layout">Layout Components</h2>
+    <table>
+      <tr><th>Component</th><th>Description</th></tr>
+      <tr><td>Navbar</td><td>Full nav — mega dropdown, mobile accordion, theme toggle, preview banner</td></tr>
+      <tr><td>NavbarMegaMenu</td><td>Hover-triggered mega menu variant</td></tr>
+      <tr><td>NavbarMinimal</td><td>Logo + CTA only — used on Login and Coming Soon</td></tr>
+      <tr><td>Footer</td><td>5-column layout with newsletter signup and social links</td></tr>
+      <tr><td>FooterMinimal</td><td>Single-row centered footer</td></tr>
+    </table>
+
+    <!-- Forms & API Routes -->
+    <h2 id="forms">Forms &amp; API Routes</h2>
+    <p>Two API routes are included out of the box:</p>
+    <table>
+      <tr><th>Route</th><th>Method</th><th>Payload</th></tr>
+      <tr><td>/api/contact</td><td>POST</td><td>{ name, email, subject, message }</td></tr>
+      <tr><td>/api/newsletter</td><td>POST</td><td>{ email }</td></tr>
+    </table>
+    <p>Both routes validate input and return <code>{ success: true }</code> on success
+    or <code>{ error: "message" }</code> with a 4xx status on failure.</p>
+    <div class="note"><p>By default the routes only validate and log in development. Add your email service in the commented blocks inside each route file.</p></div>
+
+    <!-- Email Integration -->
+    <h2 id="email">Email Integration</h2>
+    <p>The recommended provider is <a href="https://resend.com" target="_blank">Resend</a>.
+    Install the SDK, then uncomment the example block in the route file:</p>
+    <pre><code>npm install resend</code></pre>
+    <pre><code>// app/api/newsletter/route.ts
+import { Resend } from 'resend'
+const resend = new Resend(process.env.RESEND_API_KEY)
+await resend.contacts.create({
+  email,
+  audienceId: process.env.RESEND_AUDIENCE_ID!,
+})</code></pre>
+    <p>Alternative providers: Mailchimp, ConvertKit, Loops.so, Nodemailer. See comments in each route file.</p>
+
+    <!-- Authentication -->
+    <h2 id="auth">Authentication</h2>
+    <p>The login page UI is ready. Connect your chosen provider in <code>app/login/page.tsx</code>:</p>
+    <pre><code>// Clerk
+import { useSignIn } from '@clerk/nextjs'
+
+// NextAuth
+import { signIn } from 'next-auth/react'
+await signIn('credentials', { email, password })
+
+// Supabase
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+await supabase.auth.signInWithPassword({ email, password })</code></pre>
+
+    <!-- Deployment -->
+    <h2 id="deploy">Deployment</h2>
+    <h3>Vercel (recommended)</h3>
+    <pre><code>npm i -g vercel
+vercel</code></pre>
+    <p>Set environment variables in the Vercel dashboard under <strong>Settings → Environment Variables</strong>.</p>
+
+    <h3>Other platforms</h3>
+    <pre><code>npm run build
+npm run start   # starts Node.js server on port 3000</code></pre>
+    <p>NexLayer works on any platform that supports Node.js 18+: Railway, Render, Fly.io, AWS, DigitalOcean.</p>
+
+    <div class="warn"><p>Always set <code>NEXT_PUBLIC_APP_URL</code> to your production domain before deploying. This is used by the sitemap, robots.txt, and OG image metadata.</p></div>
+
+    <!-- SEO -->
+    <h2 id="seo">SEO &amp; Metadata</h2>
+    <p>Metadata is managed via Next.js <code>Metadata</code> API in <code>app/layout.tsx</code>.
+    Update <code>title</code>, <code>description</code>, <code>keywords</code>, and
+    <code>openGraph</code> fields for your product.</p>
+    <ul>
+      <li><strong>sitemap.xml</strong> — auto-generated at <code>/sitemap.xml</code>. Add new routes in <code>app/sitemap.ts</code>.</li>
+      <li><strong>robots.txt</strong> — auto-generated at <code>/robots.txt</code>.</li>
+      <li><strong>OG image</strong> — generated at <code>/opengraph-image</code> via <code>app/opengraph-image.tsx</code>.</li>
+      <li><strong>Favicon</strong> — generated at <code>/icon</code> via <code>app/icon.tsx</code>.</li>
+      <li><strong>Apple touch icon</strong> — generated at <code>/apple-icon</code> via <code>app/apple-icon.tsx</code>.</li>
+    </ul>
+
+    <!-- Support -->
+    <h2 id="support">Support</h2>
+    <p>If you have questions or run into issues:</p>
+    <ul>
+      <li>Use the <strong>Comments</strong> tab on the ThemeForest item page</li>
+      <li>Email: <a href="mailto:support@nexlayer.io">support@nexlayer.io</a></li>
+    </ul>
+    <div class="note"><p>Please include your <strong>purchase code</strong> and a description of the issue. We respond within 24–48 hours on business days.</p></div>
+
+    <p style="margin-top: 60px; color: #3f3f46; font-size: 13px;">
+      NexLayer v2.0.0 — © 2026 NexLayer. Distributed under the
+      <a href="https://themeforest.net/licenses/standard" target="_blank" style="color:#3f3f46">Envato Regular License</a>.
+    </p>
+
+  </main>
+</div>
+</body>
+</html>

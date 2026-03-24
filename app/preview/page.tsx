@@ -226,7 +226,7 @@ const pages: PageItem[] = [
   },
   {
     title:      'Homepage — Premium (v3)',
-    desc:       'Gradient hero, services, portfolio, video demo, timeline, newsletter, awards.',
+    desc:       'Gradient hero, services, portfolio, gallery, video demo, timeline, newsletter, awards.',
     href:       '/v3',
     badge:      'Variant C',
     badgeColor: 'bg-cyan-500/15 text-cyan-400',
@@ -489,6 +489,16 @@ const sections: SectionItem[] = [
       [{ w: 'auto', h: 6, c: 'bg-surface-700' }, { w: 'auto', h: 6, c: 'bg-surface-700' }, { w: 'auto', h: 6, c: 'bg-surface-700' }, { w: 'auto', h: 6, c: 'bg-surface-700' }, { w: 'auto', h: 6, c: 'bg-surface-700' }],
     ]} />,
   },
+  {
+    title: 'Gallery',
+    desc:  'Filterable masonry grid — product images, portfolio, photography',
+    href:  '/v3#gallery',
+    tag:   'Visual',
+    preview: <WireBlocks rows={[
+      [{ w: 'auto', h: 20, c: 'bg-surface-800' }, { w: 'auto', h: 20, c: 'bg-surface-700' }],
+      [{ w: 'auto', h: 12, c: 'bg-surface-700' }, { w: 'auto', h: 12, c: 'bg-surface-800' }, { w: 'auto', h: 12, c: 'bg-surface-800' }],
+    ]} />,
+  },
 ]
 
 // ─── Layout variants ─────────────────────────────────────
@@ -663,7 +673,7 @@ export default function PreviewPage() {
             <span className="text-xs text-surface-500">ThemeForest Live Preview</span>
             <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full
                              bg-brand-500/15 text-brand-400 border border-brand-500/20">
-              v1.0
+              v2.0
             </span>
           </div>
           <a
@@ -702,8 +712,8 @@ export default function PreviewPage() {
             {/* Quick stats */}
             <div className="grid grid-cols-2 gap-3 flex-shrink-0">
               {[
-                { value: '9',   label: 'Pages'      },
-                { value: '15',  label: 'Sections'   },
+                { value: '10',  label: 'Pages'      },
+                { value: '16',  label: 'Sections'   },
                 { value: '13',  label: 'Components' },
                 { value: '5',   label: 'Layouts'    },
               ].map(s => (
@@ -796,7 +806,7 @@ export default function PreviewPage() {
             icon={Layout}
             title="Sections"
             desc="All reusable sections — drop into any page"
-            count={sections.length}
+            count={16}
           />
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {sections.map(s => <SectionCard key={s.title} s={s} />)}
@@ -880,7 +890,7 @@ export default function PreviewPage() {
           <div className="grid sm:grid-cols-2 gap-3">
             {[
               { check: true,  text: 'Full Next.js 15 source code (TypeScript)'    },
-              { check: true,  text: '8 pages, 15 sections, 13 UI components'      },
+              { check: true,  text: '10 pages, 16 sections, 13 UI components'     },
               { check: true,  text: '3 navbar variants + 2 footer variants'       },
               { check: true,  text: 'Dark & light mode with CSS variable system'  },
               { check: true,  text: 'Framer Motion scroll animations throughout'  },
@@ -943,7 +953,7 @@ export default function PreviewPage() {
               Blog
             </a>
           </div>
-          <span>© 2025 NexLayer. All rights reserved.</span>
+          <span>© 2026 NexLayer. All rights reserved.</span>
         </div>
       </div>
 

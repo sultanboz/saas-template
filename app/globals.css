@@ -253,9 +253,16 @@ body {
   .opacity-0-init { opacity: 0; }
 }
 
-/* ─── Light mode: brand glow soften ───────────────────── */
+/* ─── Light mode overrides ──────────────────────────────── */
+/* Soften brand glow */
 .light .bg-glow-brand {
   opacity: 0.5;
+}
+
+/* Reduce noise texture opacity — less grainy on white bg */
+.light.bg-noise::after,
+.light .bg-noise::after {
+  opacity: 0.08;
 }
 
 /* ─── Scrollbar ─────────────────────────────────────────── */
